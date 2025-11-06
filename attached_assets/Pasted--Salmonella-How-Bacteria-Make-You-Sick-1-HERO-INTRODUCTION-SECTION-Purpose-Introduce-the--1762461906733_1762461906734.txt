@@ -1,0 +1,188 @@
+“Salmonella: How Bacteria Make You Sick”
+🌟 1️⃣ HERO / INTRODUCTION SECTION
+
+Purpose: Introduce the topic and your group.
+Include:
+
+Title of project: Salmonella — How Bacteria Make You Sick
+
+Subtitle: Group 4 — GCSE Biology Presentation
+
+A short summary (1–2 sentences) of what the website will cover: how Salmonella spreads, symptoms, prevention, and links to other groups.
+
+A visual background (microscope, bacteria, food, etc.)
+
+A “Scroll to Begin ↓” animation or button.
+
+🌿 2️⃣ FROM PLANTS TO PEOPLE (LINK TO GROUP 3)
+
+Purpose: Connect your disease to the previous group (TMV).
+Include:
+
+Quick summary of TMV (plant virus, damages leaves, stops photosynthesis).
+
+Explanation that your group moves from viruses → bacteria and plants → humans.
+
+Difference between virus and bacterium (virus not living, bacterium is alive).
+
+Small comparison chart or info box showing TMV vs Salmonella.
+
+🧬 3️⃣ WHAT ARE PATHOGENS?
+
+Purpose: Give background info before focusing on your disease.
+Include:
+
+Definition of “pathogen.”
+
+The four main types: bacteria, viruses, fungi, protists.
+
+Short examples for each (Salmonella, Measles, Rose Black Spot, Malaria).
+
+Quick sentence about how they cause disease (cell damage or toxin release).
+
+Simple diagram or icons for each pathogen type.
+
+🍗 4️⃣ WHAT IS SALMONELLA?
+
+Purpose: Introduce your specific pathogen.
+Include:
+
+Type of pathogen (bacterium).
+
+Who discovered it (Dr Daniel Salmon, 1885).
+
+Where it’s found (raw meat, eggs, dairy).
+
+How it looks (rod-shaped, has flagella).
+
+Fact: over 2,500 types (serotypes).
+
+Short note that it infects the intestines and releases toxins.
+
+Maybe include a “quick facts” box (type, host, shape, danger level).
+
+🌍 5️⃣ HOW IT SPREADS
+
+Purpose: Explain transmission and causes.
+Include:
+
+How Salmonella gets into food (contaminated poultry, eggs, milk).
+
+How it spreads between people (poor hygiene, dirty surfaces, not washing hands).
+
+Timeline or diagram: Farm → Chicken → Kitchen → Plate → Person.
+
+Note that UK poultry are vaccinated to stop spread.
+
+List of prevention steps (cook, clean, chill, separate).
+
+⚗️ 6️⃣ HOW IT CAUSES DISEASE (MECHANISM)
+
+Purpose: Explain what happens inside the body.
+Include:
+
+How bacteria enter (by eating contaminated food).
+
+How they attach to gut walls and reproduce.
+
+What toxins do (damage cells, irritate intestines).
+
+How the immune system responds (fever, inflammation).
+
+Incubation period (8–72 hours).
+
+Optional: step-by-step flowchart or animation.
+
+🤒 7️⃣ SYMPTOMS
+
+Purpose: Describe effects of infection.
+Include:
+
+Common symptoms: fever, cramps, vomiting, diarrhoea.
+
+Why each happens (immune response, toxins, inflammation).
+
+Duration of symptoms (2–7 days).
+
+Note on dehydration risk and who’s most at risk (children, elderly).
+
+Visuals: icons or animated symbols for each symptom.
+
+💊 8️⃣ PREVENTION AND TREATMENT
+
+Purpose: Explain how infection can be avoided or treated.
+Include:
+
+Hygiene steps: cooking food properly, handwashing, separating raw/cooked food, refrigerating leftovers.
+
+Poultry vaccination (in UK).
+
+Treatment info: most people recover naturally; antibiotics only for severe cases.
+
+Simple “Do / Don’t” box (e.g. ✅ Wash hands / ❌ Eat raw egg).
+
+Add image or hover icons (soap, fridge, chicken, thermometer).
+
+📚 9️⃣ AQA SPECIFICATION SUMMARY
+
+Purpose: Show what you need to know for GCSE.
+Include:
+
+Official AQA learning points:
+
+Salmonella causes food poisoning.
+
+Symptoms caused by toxins.
+
+Spread through contaminated food.
+
+Prevention through vaccination and hygiene.
+
+Add one example exam-style question or fact highlight.
+
+Hover glossary for key words like “toxin”, “vector”, “bacterium”.
+
+🧩 🔟 INTERACTIVE GAME — “INFECT OR PROTECT”
+
+Purpose: Make the website interactive and educational.
+Game format: A decision-making game where the user makes hygiene choices.
+Include:
+
+Scenario 1 — In the Kitchen
+
+You’re cooking raw chicken — what do you do first?
+
+(Options: Wash hands / Cut vegetables / Taste sauce)
+
+Add reactions for right/wrong choices.
+
+Scenario 2 — Cooking Time
+
+Chicken looks cooked outside, but not sure inside — what next?
+
+(Options: Check with thermometer / Serve now / Microwave quickly)
+
+Scenario 3 — Storage Time
+
+You have leftovers — what do you do?
+
+(Options: Put in fridge / Leave out / Reuse same plate)
+
+Each correct answer → bacteria defeated / outbreak stopped.
+Each wrong answer → bacteria spread.
+Add results screen: “You stopped the outbreak!” or “Bacteria won this round!”
+
+🌎 11️⃣ GLOBAL IMPACT
+
+Purpose: Show real-world scale of the problem.
+Include:
+
+Annual infections: around 90 million globally.
+
+Where it’s most common (areas with poor refrigeration or sanitation).
+
+Example outbreak (e.g. contaminated eggs).
+
+How better food safety laws reduce cases.
+
+Add a glowing world map or infection spread animation.
