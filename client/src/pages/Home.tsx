@@ -13,6 +13,7 @@ import AQASpecification from '@/components/AQASpecification';
 import InfectOrProtectGame from '@/components/InfectOrProtectGame';
 import InteractiveGlobalMap from '@/components/InteractiveGlobalMap';
 import CustomCursor from '@/components/CustomCursor';
+import PreventionDosDontsMindMap from '@/components/PreventionDosDontsMindMap'; // Import the new component
 import { Microscope, Leaf, Bug, Activity, TrendingUp, Syringe, Thermometer, Shield, BookOpen, Gamepad2, Globe } from 'lucide-react';
 
 export default function Home() {
@@ -66,7 +67,7 @@ export default function Home() {
 
       <div className="relative">
         <ParallaxBackground />
-        
+
         <section id="section-2" className={`relative min-h-screen flex items-center justify-center px-4 py-24 transition-all duration-700 ${isVisible['section-2'] ? 'opacity-100' : 'opacity-0'}`}>
           <div className="max-w-7xl mx-auto w-full">
             <SectionHeader 
@@ -156,12 +157,12 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full">
             <SectionHeader 
               number="Section 7"
-              title="Prevention & Treatment"
-              subtitle="Click each guideline for detailed information"
+              title="Prevention: Do's & Don'ts"
+              subtitle="Click circles to learn safe food handling practices"
               icon={Shield}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-7'] ? 'animate-scale-in' : 'opacity-0'}`}>
-              <PreventionInteractive />
+              <PreventionDosDontsMindMap />
             </div>
           </div>
         </section>

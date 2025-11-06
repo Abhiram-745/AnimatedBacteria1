@@ -4,6 +4,9 @@ import { Card } from '@/components/ui/card';
 import { Pill, Droplet, Activity, Flame, AlertCircle } from 'lucide-react';
 import digestiveImage from '@assets/generated_images/Digestive_system_with_bacteria_a552a5c5.png';
 import bacteriaImage from '@assets/generated_images/Salmonella_bacteria_microscopy_hero_background_65e8d3b6.png';
+import glowingBacteriaImage from '@assets/generated_images/Salmonella_bacteria_glowing_microscopy_f48f55b0.png';
+import globalImpactImage from '@assets/generated_images/Global_impact_infection_map_069c936d.png';
+import foodSafetyImage from '@assets/generated_images/Food_safety_glowing_icons_9cc2dce0.png';
 
 const steps = [
   {
@@ -14,6 +17,7 @@ const steps = [
     details: 'Salmonella survives stomach acid and travels to the intestines.',
     color: 'text-primary',
     image: digestiveImage,
+    timeframe: '0 hours',
   },
   {
     id: 'invasion',
@@ -23,6 +27,7 @@ const steps = [
     details: 'Using flagella, bacteria attach to and penetrate the intestinal wall.',
     color: 'text-secondary',
     image: bacteriaImage,
+    timeframe: '6-12 hours',
   },
   {
     id: 'multiplication',
@@ -31,7 +36,8 @@ const steps = [
     description: 'Rapid reproduction through binary fission',
     details: 'One bacterium becomes millions in just hours inside your gut.',
     color: 'text-chart-3',
-    image: bacteriaImage,
+    image: glowingBacteriaImage,
+    timeframe: '12-24 hours',
   },
   {
     id: 'toxins',
@@ -40,7 +46,8 @@ const steps = [
     description: 'Bacteria release harmful endotoxins and exotoxins',
     details: 'Toxins damage intestinal cells and trigger immune response.',
     color: 'text-destructive',
-    image: bacteriaImage,
+    image: globalImpactImage,
+    timeframe: '24-48 hours',
   },
   {
     id: 'symptoms',
@@ -49,12 +56,14 @@ const steps = [
     description: 'Body fights back causing inflammation',
     details: 'Fever, cramps, diarrhea, and vomiting begin after 8-72 hours.',
     color: 'text-chart-4',
-    image: digestiveImage,
+    image: foodSafetyImage,
+    timeframe: '48-72 hours',
   },
 ];
 
 export default function ScrollTimelineMechanism() {
   const [activeStep, setActiveStep] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -62,20 +71,19 @@ export default function ScrollTimelineMechanism() {
     const handleScroll = () => {
       if (!containerRef.current) return;
       
-      const containerTop = containerRef.current.offsetTop;
-      const scrollPosition = window.scrollY - containerTop + window.innerHeight / 2;
+      const containerTop = containerRef.current.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
       
-      // Find which step is currently in view
-      stepRefs.current.forEach((stepRef, index) => {
-        if (stepRef) {
-          const stepTop = stepRef.offsetTop;
-          const stepBottom = stepTop + stepRef.offsetHeight;
-          
-          if (scrollPosition >= stepTop && scrollPosition < stepBottom) {
-            setActiveStep(index);
-          }
-        }
-      });
+      // Calculate scroll progress through the container
+      const progress = Math.max(0, Math.min(1, -containerTop / (windowHeight * 2)));
+      setScrollProgress(progress);
+      
+      // Determine active step based on scroll progress
+      const stepIndex = Math.min(
+        steps.length - 1,
+        Math.floor(progress * steps.length * 1.2)
+      );
+      setActiveStep(stepIndex);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -85,142 +93,140 @@ export default function ScrollTimelineMechanism() {
   }, []);
 
   return (
-    <div ref={containerRef} className="max-w-4xl mx-auto space-y-12 py-12">
-      {/* Vertical timeline connector */}
-      <div className="relative">
-        <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/30 via-primary/50 to-primary/30 transform -translate-x-1/2" />
-        
-        {steps.map((step, index) => {
-          const Icon = step.icon;
-          const isActive = index === activeStep;
-          const isPast = index < activeStep;
-          
-          return (
-            <div
-              key={step.id}
-              ref={(el) => (stepRefs.current[index] = el)}
-              className="relative mb-96 last:mb-0"
-            >
-              {/* Timeline dot */}
-              <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <div
-                  className={`w-6 h-6 rounded-full border-4 transition-all duration-500 ${
-                    isActive
-                      ? 'bg-primary border-primary scale-150 shadow-lg shadow-primary/50'
-                      : isPast
-                      ? 'bg-primary/50 border-primary/50'
-                      : 'bg-background border-primary/30'
-                  }`}
-                />
-              </div>
-
-              {/* Content card - alternating left/right */}
+    <div ref={containerRef} className="max-w-4xl mx-auto relative" style={{ minHeight: '300vh' }}>
+      {/* Fixed viewport container for stacked cards */}
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        <div className="relative w-full max-w-3xl h-[600px]">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            const isActive = index === activeStep;
+            const isPast = index < activeStep;
+            const isFuture = index > activeStep;
+            
+            // Calculate card position based on progress
+            const cardProgress = Math.max(0, Math.min(1, (scrollProgress * steps.length) - index));
+            const scale = isPast ? 0.85 : isActive ? 1 : 0.95;
+            const translateY = isFuture ? 100 : isPast ? -20 * (activeStep - index) : 0;
+            const opacity = isFuture ? 0 : isPast ? 0.3 : 1;
+            const zIndex = steps.length - Math.abs(activeStep - index);
+            
+            return (
               <div
-                className={`relative ${
-                  index % 2 === 0 ? 'pr-1/2 mr-8' : 'pl-1/2 ml-8'
-                }`}
+                key={step.id}
+                ref={(el) => (stepRefs.current[index] = el)}
+                className="absolute inset-0 transition-all duration-700 ease-out"
+                style={{
+                  transform: `translateY(${translateY}%) scale(${scale})`,
+                  opacity,
+                  zIndex,
+                }}
               >
                 <Card
-                  className={`p-8 glass-card transition-all duration-700 ${
+                  className={`h-full glass-card transition-all duration-700 ${
                     isActive
-                      ? 'ring-2 ring-primary scale-105 hover-elevate-2 opacity-100'
-                      : isPast
-                      ? 'opacity-70'
-                      : 'opacity-40'
+                      ? 'ring-2 ring-primary shadow-2xl shadow-primary/20'
+                      : ''
                   }`}
                 >
-                  <div className="space-y-6">
-                    {/* Image */}
-                    <div className="relative overflow-hidden rounded-lg">
+                  <div className="h-full flex flex-col">
+                    {/* Image section */}
+                    <div className="relative h-64 overflow-hidden rounded-t-lg">
                       <img
                         src={step.image}
                         alt={step.title}
-                        className={`w-full h-48 object-cover transition-all duration-700 ${
-                          isActive ? 'scale-105' : 'scale-100'
+                        className={`w-full h-full object-cover transition-all duration-700 ${
+                          isActive ? 'scale-110' : 'scale-100'
                         }`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                    </div>
-
-                    {/* Icon and title */}
-                    <div className="flex items-center gap-4">
-                      <div
-                        className={`p-4 bg-accent/20 rounded-lg ${step.color} transition-all ${
-                          isActive ? 'animate-pulse' : ''
-                        }`}
-                      >
-                        <Icon className="w-10 h-10" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className={`font-bold text-2xl ${step.color}`}>
-                          {step.title}
-                        </h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {step.description}
-                        </p>
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                      
+                      {/* Timeframe badge */}
+                      <div className="absolute top-4 right-4">
+                        <div className={`px-4 py-2 rounded-full font-bold text-sm ${
+                          isActive ? 'bg-primary text-primary-foreground' : 'bg-background/80 text-primary'
+                        }`}>
+                          {step.timeframe}
+                        </div>
                       </div>
                     </div>
 
-                    {/* Details - shown when active */}
-                    {isActive && (
-                      <div className="pt-4 border-t border-primary/20 animate-slide-up">
-                        <p className="text-base italic leading-relaxed">{step.details}</p>
+                    {/* Content section */}
+                    <div className="flex-1 p-8 space-y-6">
+                      {/* Icon and title */}
+                      <div className="flex items-center gap-4">
+                        <div
+                          className={`p-4 bg-accent/20 rounded-lg ${step.color} transition-all ${
+                            isActive ? 'animate-pulse' : ''
+                          }`}
+                        >
+                          <Icon className="w-12 h-12" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className={`font-bold text-3xl ${step.color} mb-2`}>
+                            {step.title}
+                          </h3>
+                          <p className="text-lg text-muted-foreground">
+                            {step.description}
+                          </p>
+                        </div>
+                        {/* Step number */}
+                        <div
+                          className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-2xl ${
+                            isActive
+                              ? 'bg-primary text-primary-foreground'
+                              : 'bg-primary/20 text-primary/60'
+                          }`}
+                        >
+                          {index + 1}
+                        </div>
                       </div>
-                    )}
 
-                    {/* Step number */}
-                    <div className="absolute top-4 right-4">
-                      <div
-                        className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${
-                          isActive
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-primary/20 text-primary/60'
-                        }`}
-                      >
-                        {index + 1}
-                      </div>
+                      {/* Details - shown when active */}
+                      {isActive && (
+                        <div className="pt-6 border-t border-primary/20 animate-slide-up">
+                          <p className="text-xl italic leading-relaxed">{step.details}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </Card>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
 
-      {/* Progress indicator */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-20">
-        {steps.map((step, index) => (
-          <div
-            key={index}
-            className="group flex items-center gap-2"
-            onClick={() => {
-              stepRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }}
-          >
-            <span
-              className={`text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity bg-background/90 px-2 py-1 rounded ${
-                index === activeStep ? 'text-primary' : 'text-muted-foreground'
-              }`}
-            >
-              {step.title}
-            </span>
+        {/* Progress indicator */}
+        <div className="fixed right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-50">
+          {steps.map((step, index) => (
             <div
-              className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
-                index === activeStep
-                  ? 'w-4 h-4 bg-primary shadow-lg shadow-primary/50'
-                  : index < activeStep
-                  ? 'bg-primary/50'
-                  : 'bg-primary/20'
-              }`}
-            />
-          </div>
-        ))}
+              key={index}
+              className="group flex items-center gap-2"
+            >
+              <span
+                className={`text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity bg-background/90 px-2 py-1 rounded whitespace-nowrap ${
+                  index === activeStep ? 'text-primary' : 'text-muted-foreground'
+                }`}
+              >
+                {step.title}
+              </span>
+              <div
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === activeStep
+                    ? 'w-4 h-4 bg-primary shadow-lg shadow-primary/50'
+                    : index < activeStep
+                    ? 'bg-primary/50'
+                    : 'bg-primary/20'
+                }`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Scroll hint */}
-      <div className="text-center text-sm text-muted-foreground animate-pulse">
-        Scroll down to progress through the infection stages
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 text-center text-sm text-muted-foreground animate-pulse z-50">
+        <p>Scroll down to progress through the infection stages</p>
+        <p className="text-xs mt-1">({activeStep + 1} of {steps.length})</p>
       </div>
     </div>
   );
