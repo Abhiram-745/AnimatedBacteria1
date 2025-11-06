@@ -3,15 +3,16 @@ import ParallaxBackground from '@/components/ParallaxBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import SectionHeader from '@/components/SectionHeader';
 import PathogenComparison from '@/components/PathogenComparison';
-import PathogenTypes from '@/components/PathogenTypes';
+import PathogenTypesInteractive from '@/components/PathogenTypesInteractive';
 import SalmonellaFacts from '@/components/SalmonellaFacts';
-import SpreadTimeline from '@/components/SpreadTimeline';
+import InteractiveSpreadTimeline from '@/components/InteractiveSpreadTimeline';
 import MechanismFlow from '@/components/MechanismFlow';
 import SymptomsGrid from '@/components/SymptomsGrid';
 import PreventionGrid from '@/components/PreventionGrid';
 import AQASpecification from '@/components/AQASpecification';
 import InfectOrProtectGame from '@/components/InfectOrProtectGame';
-import GlobalImpact from '@/components/GlobalImpact';
+import InteractiveGlobalMap from '@/components/InteractiveGlobalMap';
+import CustomCursor from '@/components/CustomCursor';
 import { Microscope, Leaf, Bug, Activity, TrendingUp, Syringe, Thermometer, Shield, BookOpen, Gamepad2, Globe } from 'lucide-react';
 
 export default function Home() {
@@ -37,7 +38,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ cursor: 'none' }}>
+      <CustomCursor />
       <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <ParallaxBackground isHero />
         <div className="relative z-10 text-center px-4 space-y-8 max-w-5xl mx-auto">
@@ -84,11 +86,11 @@ export default function Home() {
             <SectionHeader 
               number="Section 3"
               title="What Are Pathogens?"
-              subtitle="The four main types of disease-causing organisms"
+              subtitle="Click each pathogen to learn more details"
               icon={Bug}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-3'] ? 'animate-scale-in' : 'opacity-0'}`}>
-              <PathogenTypes />
+              <PathogenTypesInteractive />
             </div>
           </div>
         </section>
@@ -112,11 +114,11 @@ export default function Home() {
             <SectionHeader 
               number="Section 5"
               title="How It Spreads"
-              subtitle="From farm to table - the journey of contamination"
+              subtitle="Scroll to animate - Click each step for details"
               icon={TrendingUp}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-5'] ? 'animate-slide-up' : 'opacity-0'}`}>
-              <SpreadTimeline />
+              <InteractiveSpreadTimeline />
             </div>
           </div>
         </section>
@@ -196,11 +198,11 @@ export default function Home() {
             <SectionHeader 
               number="Section 11"
               title="Global Impact"
-              subtitle="The worldwide scale of Salmonella infections"
+              subtitle="Click regions on the map to explore infection rates"
               icon={Globe}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-11'] ? 'animate-scale-in' : 'opacity-0'}`}>
-              <GlobalImpact />
+              <InteractiveGlobalMap />
             </div>
           </div>
         </section>
