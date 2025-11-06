@@ -13,13 +13,13 @@ export default function SectionHeader({ number, title, subtitle, icon: Icon }: S
     <div className="text-center mb-16 space-y-6" data-testid={`section-header-${number}`}>
       <Badge 
         variant="outline" 
-        className="text-primary border-primary text-lg px-6 py-2 text-glow-sm"
+        className="text-primary border-primary text-lg px-6 py-2"
       >
         {number}
       </Badge>
       
       <div className="space-y-3">
-        <h2 className="text-4xl md:text-6xl font-black gradient-text text-glow">
+        <h2 className="text-4xl md:text-6xl font-black gradient-text">
           {Icon && <Icon className="inline-block w-12 h-12 mr-4 mb-2" />}
           {title}
         </h2>

@@ -48,7 +48,7 @@ export default function SymptomsGrid() {
                 <symptom.icon className="w-10 h-10" />
               </div>
               <div className="flex-1 space-y-2">
-                <h3 className={`text-2xl font-bold ${symptom.color} text-glow-sm`}>
+                <h3 className={`text-2xl font-bold ${symptom.color}`}>
                   {symptom.name}
                 </h3>
                 <p className="text-base text-foreground/90">{symptom.description}</p>

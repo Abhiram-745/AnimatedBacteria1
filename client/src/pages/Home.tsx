@@ -42,10 +42,10 @@ export default function Home() {
         <ParallaxBackground isHero />
         <div className="relative z-10 text-center px-4 space-y-8 max-w-5xl mx-auto">
           <div className="space-y-6 animate-slide-up">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black gradient-text text-glow-lg leading-tight">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black gradient-text text-glow leading-tight">
               Salmonella
             </h1>
-            <h2 className="text-3xl md:text-5xl font-bold text-primary text-glow animate-glow-pulse">
+            <h2 className="text-3xl md:text-5xl font-bold text-primary animate-glow-pulse">
               How Bacteria Make You Sick
             </h2>
             <p className="text-xl md:text-2xl text-secondary font-medium">

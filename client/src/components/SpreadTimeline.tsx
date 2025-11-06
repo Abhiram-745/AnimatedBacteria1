@@ -25,7 +25,7 @@ export default function SpreadTimeline() {
                   <step.icon className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <p className="font-bold text-lg text-primary text-glow-sm">{step.label}</p>
+                  <p className="font-bold text-lg text-primary">{step.label}</p>
                   <p className="text-sm text-muted-foreground">{step.description}</p>
                 </div>
               </div>

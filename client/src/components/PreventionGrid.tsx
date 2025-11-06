@@ -22,9 +22,9 @@ export default function PreventionGrid() {
         <div className="space-y-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-primary/10 rounded-lg">
-              <Check className="w-8 h-8 text-primary text-glow-sm" />
+              <Check className="w-8 h-8 text-primary" />
             </div>
-            <h3 className="text-3xl font-bold text-primary text-glow">DO</h3>
+            <h3 className="text-3xl font-bold text-primary">DO</h3>
           </div>
           <div className="space-y-4">
             {doList.map((item, index) => (
@@ -45,9 +45,9 @@ export default function PreventionGrid() {
         <div className="space-y-6">
           <div className="flex items-center gap-3">
             <div className="p-3 bg-destructive/10 rounded-lg">
-              <X className="w-8 h-8 text-destructive text-glow-sm" />
+              <X className="w-8 h-8 text-destructive" />
             </div>
-            <h3 className="text-3xl font-bold text-destructive text-glow">DON'T</h3>
+            <h3 className="text-3xl font-bold text-destructive">DON'T</h3>
           </div>
           <div className="space-y-4">
             {dontList.map((item, index) => (

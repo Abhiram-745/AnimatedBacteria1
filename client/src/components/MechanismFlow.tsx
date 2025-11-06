@@ -53,10 +53,10 @@ export default function MechanismFlow() {
                 </div>
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-3">
-                    <span className={`text-4xl font-black ${step.color} text-glow-sm`}>
+                    <span className={`text-4xl font-black ${step.color}`}>
                       {index + 1}
                     </span>
-                    <h3 className={`text-2xl font-bold ${step.color} text-glow-sm`}>
+                    <h3 className={`text-2xl font-bold ${step.color}`}>
                       {step.title}
                     </h3>
                   </div>

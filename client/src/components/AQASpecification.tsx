@@ -19,7 +19,7 @@ export default function AQASpecification() {
               <BookOpen className="w-10 h-10 text-primary" />
             </div>
             <div>
-              <h3 className="text-3xl font-bold text-primary text-glow">AQA GCSE Biology</h3>
+              <h3 className="text-3xl font-bold text-primary">AQA GCSE Biology</h3>
               <p className="text-lg text-muted-foreground">Official Specification Summary</p>
             </div>
           </div>

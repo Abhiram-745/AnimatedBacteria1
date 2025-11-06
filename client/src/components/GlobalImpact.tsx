@@ -14,7 +14,7 @@ export default function GlobalImpact() {
     <div className="max-w-6xl mx-auto space-y-8">
       <Card className="p-8 glass-card overflow-hidden relative group" data-testid="global-map-card">
         <div className="relative z-10 space-y-6">
-          <h3 className="text-3xl font-bold text-primary text-glow text-center">
+          <h3 className="text-3xl font-bold text-primary text-center">
             Worldwide Impact
           </h3>
           <div className="relative rounded-lg overflow-hidden">
@@ -43,7 +43,7 @@ export default function GlobalImpact() {
                 </div>
               </div>
               <div>
-                <p className={`text-3xl font-black ${stat.color} text-glow`}>
+                <p className={`text-3xl font-black ${stat.color}`}>
                   {stat.value}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">{stat.label}</p>

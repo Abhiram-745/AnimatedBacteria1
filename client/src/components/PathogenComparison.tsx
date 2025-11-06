@@ -6,7 +6,7 @@ export default function PathogenComparison() {
     <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
       <Card className="p-8 glass-card hover-elevate active-elevate-2 transition-all" data-testid="card-tmv">
         <div className="space-y-4">
-          <h3 className="text-3xl font-bold text-secondary text-glow-sm">TMV (Virus)</h3>
+          <h3 className="text-3xl font-bold text-secondary">TMV (Virus)</h3>
           <div className="space-y-3 text-base">
             <p className="flex items-start gap-2">
               <span className="text-secondary mt-1">•</span>
@@ -33,7 +33,7 @@ export default function PathogenComparison() {
           <ArrowRight className="w-8 h-8 text-primary animate-pulse" />
         </div>
         <div className="space-y-4">
-          <h3 className="text-3xl font-bold text-primary text-glow-sm">Salmonella (Bacterium)</h3>
+          <h3 className="text-3xl font-bold text-primary">Salmonella (Bacterium)</h3>
           <div className="space-y-3 text-base">
             <p className="flex items-start gap-2">
               <span className="text-primary mt-1">•</span>

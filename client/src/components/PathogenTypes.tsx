@@ -45,10 +45,10 @@ export default function PathogenTypes() {
           <div className="space-y-4 text-center">
             <div className="flex justify-center">
               <div className={`${pathogen.color} p-4 rounded-lg bg-accent/20 group-hover:scale-110 transition-transform`}>
-                <pathogen.icon className="w-12 h-12 text-glow-sm" />
+                <pathogen.icon className="w-12 h-12" />
               </div>
             </div>
-            <h3 className={`text-2xl font-bold ${pathogen.color} text-glow-sm`}>
+            <h3 className={`text-2xl font-bold ${pathogen.color}`}>
               {pathogen.type}
             </h3>
             <p className="text-sm text-muted-foreground">{pathogen.description}</p>

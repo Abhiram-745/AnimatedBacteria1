@@ -79,17 +79,17 @@ export default function InfectOrProtectGame() {
       <Card className="max-w-2xl mx-auto p-12 glass-card text-center space-y-8 animate-scale-in" data-testid="game-results">
         <div className={`p-6 rounded-full ${passed ? 'bg-primary/20' : 'bg-destructive/20'} w-32 h-32 mx-auto flex items-center justify-center`}>
           {passed ? (
-            <Trophy className="w-20 h-20 text-primary text-glow animate-pulse" />
+            <Trophy className="w-20 h-20 text-primary animate-pulse" />
           ) : (
-            <XCircle className="w-20 h-20 text-destructive text-glow" />
+            <XCircle className="w-20 h-20 text-destructive" />
           )}
         </div>
         <div className="space-y-4">
-          <h3 className={`text-5xl font-black ${passed ? 'text-primary gradient-text' : 'text-destructive'} text-glow`}>
+          <h3 className={`text-5xl font-black ${passed ? 'text-primary gradient-text' : 'text-destructive'}`}>
             {passed ? 'Outbreak Stopped!' : 'Bacteria Won This Round!'}
           </h3>
           <p className="text-2xl">
-            You scored <span className="font-bold text-primary text-glow">{score}</span> out of {scenarios.length}
+            You scored <span className="font-bold text-primary">{score}</span> out of {scenarios.length}
           </p>
           <p className="text-lg text-muted-foreground">
             {passed 
@@ -124,7 +124,7 @@ export default function InfectOrProtectGame() {
       </div>
 
       <Card className="p-8 glass-card" data-testid={`scenario-${scenario.id}`}>
-        <h3 className="text-3xl font-bold mb-8 text-center text-primary text-glow">
+        <h3 className="text-3xl font-bold mb-8 text-center text-primary">
           {scenario.question}
         </h3>
 

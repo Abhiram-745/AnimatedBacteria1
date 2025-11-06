@@ -16,10 +16,10 @@ export default function SalmonellaFacts() {
         <div className="space-y-6">
           <Card className="p-8 glass-card border-primary/30">
             <div className="space-y-4">
-              <Badge variant="outline" className="text-primary border-primary text-glow-sm">
+              <Badge variant="outline" className="text-primary border-primary">
                 Quick Facts
               </Badge>
-              <h3 className="text-3xl font-bold text-primary text-glow">What is Salmonella?</h3>
+              <h3 className="text-3xl font-bold text-primary">What is Salmonella?</h3>
               <p className="text-lg leading-relaxed">
                 Salmonella is a type of <span className="text-primary font-semibold">bacterium</span> - a single-celled living organism. 
                 It infects the intestines and releases <span className="text-primary font-semibold">toxins</span> that make you sick.
