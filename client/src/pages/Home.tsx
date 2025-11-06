@@ -3,10 +3,10 @@ import ParallaxBackground from '@/components/ParallaxBackground';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import SectionHeader from '@/components/SectionHeader';
 import PathogenTypesInteractive from '@/components/PathogenTypesInteractive';
-import TMVFlashcards from '@/components/TMVFlashcards';
-import SalmonellaInfoBoxes from '@/components/SalmonellaInfoBoxes';
+import TMVMindMap from '@/components/TMVMindMap';
+import SalmonellaMindMap from '@/components/SalmonellaMindMap';
 import InfiniteSpreadScroll from '@/components/InfiniteSpreadScroll';
-import MechanismInteractive from '@/components/MechanismInteractive';
+import ScrollTimelineMechanism from '@/components/ScrollTimelineMechanism';
 import SymptomsInteractive from '@/components/SymptomsInteractive';
 import PreventionInteractive from '@/components/PreventionInteractive';
 import AQASpecification from '@/components/AQASpecification';
@@ -71,12 +71,12 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full">
             <SectionHeader 
               number="Section 2A"
-              title="TMV Virus"
-              subtitle="Click flashcards to learn about tobacco mosaic virus"
+              title="TMV Virus Mind Map"
+              subtitle="Click on circles to expand and explore connections"
               icon={Leaf}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-2'] ? 'animate-scale-in' : 'opacity-0'}`}>
-              <TMVFlashcards />
+              <TMVMindMap />
             </div>
           </div>
         </section>
@@ -85,12 +85,12 @@ export default function Home() {
           <div className="max-w-7xl mx-auto w-full">
             <SectionHeader 
               number="Section 2B"
-              title="Salmonella Bacterium"
-              subtitle="Click info boxes to explore bacterial characteristics"
+              title="Salmonella Bacterium Mind Map"
+              subtitle="Click on circles to expand and explore bacterial characteristics"
               icon={Bug}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-2b'] ? 'animate-scale-in' : 'opacity-0'}`}>
-              <SalmonellaInfoBoxes />
+              <SalmonellaMindMap />
             </div>
           </div>
         </section>
@@ -115,7 +115,7 @@ export default function Home() {
             <SectionHeader 
               number="Section 4"
               title="How It Spreads"
-              subtitle="Auto-scrolling journey from farm to person"
+              subtitle="Click on boxes in the auto-scrolling timeline"
               icon={TrendingUp}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-4'] ? 'animate-slide-up' : 'opacity-0'}`}>
@@ -124,16 +124,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="section-5" className={`relative min-h-screen flex items-center justify-center px-4 py-24 transition-all duration-700 ${isVisible['section-5'] ? 'opacity-100' : 'opacity-0'}`}>
+        <section id="section-5" className={`relative px-4 py-24 transition-all duration-700 ${isVisible['section-5'] ? 'opacity-100' : 'opacity-0'}`}>
           <div className="max-w-7xl mx-auto w-full">
             <SectionHeader 
               number="Section 5"
               title="How It Causes Disease"
-              subtitle="Click each step to explore the infection process"
+              subtitle="Scroll to progress through the infection timeline"
               icon={Syringe}
             />
             <div className={`transition-all duration-700 delay-200 ${isVisible['section-5'] ? 'animate-slide-up' : 'opacity-0'}`}>
-              <MechanismInteractive />
+              <ScrollTimelineMechanism />
             </div>
           </div>
         </section>
