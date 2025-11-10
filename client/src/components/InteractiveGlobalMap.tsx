@@ -55,15 +55,69 @@ const regions = [
   },
 ];
 
-const stats = [
-  { icon: Users, label: 'Annual Infections', value: '~90 Million', color: 'text-chart-3' },
-  { icon: Globe, label: 'Most Affected', value: 'Areas with poor sanitation', color: 'text-secondary' },
-  { icon: TrendingDown, label: 'Outbreaks', value: 'Often from contaminated eggs', color: 'text-chart-4' },
-  { icon: Shield, label: 'Solution', value: 'Better food safety laws', color: 'text-primary' },
+interface Stat {
+  icon: any;
+  label: string;
+  value: string;
+  color: string;
+  details: string;
+  subPoints?: { label: string; description: string }[];
+}
+
+const stats: Stat[] = [
+  {
+    icon: Users,
+    label: 'Annual Infections',
+    value: '~90 Million',
+    color: 'text-chart-3',
+    details: 'Mostly occurs in regions with limited refrigeration and unsafe water.',
+    subPoints: [
+      { label: 'Africa', description: 'Highest burden due to water quality issues' },
+      { label: 'South Asia', description: 'High population density increases spread' },
+      { label: 'Latin America', description: 'Variable food safety regulations' }
+    ]
+  },
+  {
+    icon: Globe,
+    label: 'Most Affected',
+    value: 'Areas with poor sanitation',
+    color: 'text-secondary',
+    details: 'Higher risk due to poor sewage systems and lack of clean water.',
+    subPoints: [
+      { label: 'Sanitation', description: 'Inadequate sewage treatment' },
+      { label: 'Water Supply', description: 'Contaminated drinking water sources' },
+      { label: 'Healthcare', description: 'Limited access to treatment' }
+    ]
+  },
+  {
+    icon: TrendingDown,
+    label: 'Outbreaks',
+    value: 'Often from contaminated eggs',
+    color: 'text-chart-4',
+    details: 'Several major outbreaks have been linked to egg distribution chains.',
+    subPoints: [
+      { label: 'Processing', description: 'Contamination during egg handling' },
+      { label: 'Storage', description: 'Improper temperature control' },
+      { label: 'Distribution', description: 'Long supply chains increase risk' }
+    ]
+  },
+  {
+    icon: Shield,
+    label: 'Solution',
+    value: 'Better food safety laws',
+    color: 'text-primary',
+    details: 'Vaccinated poultry and strict hygiene checks dramatically reduce cases.',
+    subPoints: [
+      { label: 'Vaccination', description: 'UK poultry vaccination programs' },
+      { label: 'Regulations', description: 'Mandatory food safety standards' },
+      { label: 'Inspections', description: 'Regular health and safety audits' }
+    ]
+  },
 ];
 
 export default function InteractiveGlobalMap() {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [expandedStat, setExpandedStat] = useState<string | null>(null);
 
   const activeRegion = regions.find(r => r.name === selectedRegion);
 
@@ -130,28 +184,96 @@ export default function InteractiveGlobalMap() {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
-          <Card
-            key={stat.label}
-            data-testid={`stat-${stat.label.toLowerCase().replace(' ', '-')}`}
-            className="p-6 glass-card hover-elevate active-elevate-2 group cursor-pointer animate-scale-in cursor-scale"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            <div className="space-y-4 text-center">
-              <div className="flex justify-center">
-                <div className={`p-4 bg-accent/20 rounded-lg ${stat.color} group-hover:scale-110 transition-transform`}>
-                  <stat.icon className="w-8 h-8" />
-                </div>
-              </div>
-              <div>
-                <p className={`text-3xl font-black ${stat.color}`}>
-                  {stat.value}
-                </p>
-                <p className="text-sm text-muted-foreground mt-2">{stat.label}</p>
-              </div>
+        {stats.map((stat, index) => {
+          const isExpanded = expandedStat === stat.label;
+          return (
+            <div key={stat.label} className={`${
+              isExpanded ? 'md:col-span-2 lg:col-span-4' : ''
+            } transition-all duration-300`}>
+              <Card
+                data-testid={`stat-${stat.label.toLowerCase().replace(' ', '-')}`}
+                onClick={() => setExpandedStat(isExpanded ? null : stat.label)}
+                className={`p-6 glass-card hover-elevate active-elevate-2 group cursor-pointer animate-scale-in cursor-scale transition-all duration-300 ${
+                  isExpanded ? 'ring-2 ring-primary animate-pulse-glow' : ''
+                }`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {!isExpanded ? (
+                  <div className="space-y-4 text-center">
+                    <div className="flex justify-center">
+                      <div className={`p-4 bg-accent/20 rounded-lg ${stat.color} group-hover:scale-110 transition-transform`}>
+                        <stat.icon className="w-8 h-8" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className={`text-3xl font-black ${stat.color}`}>
+                        {stat.value}
+                      </p>
+                      <p className="text-sm text-muted-foreground mt-2">{stat.label}</p>
+                    </div>
+                    <p className="text-xs text-primary">Click to expand</p>
+                  </div>
+                ) : (
+                  <div className="space-y-6 animate-scale-in">
+                    <div className="flex items-start gap-4">
+                      <div className={`p-4 bg-accent/20 rounded-lg ${stat.color} flex-shrink-0`}>
+                        <stat.icon className="w-10 h-10" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className={`text-2xl font-bold ${stat.color} mb-2`}>{stat.value}</h4>
+                        <p className="text-base font-semibold mb-2">{stat.label}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{stat.details}</p>
+                      </div>
+                    </div>
+
+                    {stat.subPoints && stat.subPoints.length > 0 && (
+                      <div className="relative">
+                        <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+                          {stat.subPoints.map((_, idx) => {
+                            const angle = (idx * 360) / stat.subPoints!.length;
+                            const rad = (angle * Math.PI) / 180;
+                            const startX = 15;
+                            const startY = 50;
+                            const endX = 50 + 35 * Math.cos(rad - Math.PI / 2);
+                            const endY = 50 + 35 * Math.sin(rad - Math.PI / 2);
+                            return (
+                              <line
+                                key={idx}
+                                x1={`${startX}%`}
+                                y1={`${startY}%`}
+                                x2={`${endX}%`}
+                                y2={`${endY}%`}
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                className={`${stat.color} opacity-40 animate-scale-in`}
+                                style={{ animationDelay: `${idx * 0.1}s` }}
+                              />
+                            );
+                          })}
+                        </svg>
+
+                        <div className="grid md:grid-cols-3 gap-4 mt-4 relative z-10">
+                          {stat.subPoints.map((point, idx) => (
+                            <Card
+                              key={idx}
+                              className="p-4 bg-accent/30 border-primary/20 animate-slide-up"
+                              style={{ animationDelay: `${idx * 0.15}s` }}
+                            >
+                              <p className={`font-bold text-sm mb-2 ${stat.color}`}>{point.label}</p>
+                              <p className="text-xs text-muted-foreground leading-relaxed">{point.description}</p>
+                            </Card>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <p className="text-xs text-center text-primary">Click again to collapse</p>
+                  </div>
+                )}
+              </Card>
             </div>
-          </Card>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

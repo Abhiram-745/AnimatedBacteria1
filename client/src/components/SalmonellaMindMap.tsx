@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Bug, FlaskConical, Dna, Target, Activity, Pill, Thermometer, AlertTriangle } from 'lucide-react';
 import salmonellaImage from '@assets/generated_images/Salmonella_bacteria_glowing_microscopy_f48f55b0.png';
@@ -130,54 +130,71 @@ export default function SalmonellaMindMap() {
     };
   };
 
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+
   const renderNode = (node: Node, isChild = false) => {
     const isExpanded = expandedNodes.has(node.id);
     const isSelected = selectedNode === node.id;
+    const isHovered = hoveredNode === node.id;
     const Icon = node.icon;
     const radius = isChild ? 25 : 35;
     const pos = calculatePosition(node.angle, radius, isChild);
 
+    // Smart positioning for info panel to avoid overlap
+    const getInfoPosition = () => {
+      const angle = node.angle;
+      if (angle >= 315 || angle < 45) return 'top-full mt-4';
+      if (angle >= 45 && angle < 135) return 'left-full ml-4 top-1/2 -translate-y-1/2';
+      if (angle >= 135 && angle < 225) return 'bottom-full mb-4';
+      return 'right-full mr-4 top-1/2 -translate-y-1/2';
+    };
+
     return (
       <div key={node.id}>
-        <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+        <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
           <line
             x1="50%"
             y1="50%"
             x2={`${pos.x}%`}
             y2={`${pos.y}%`}
             stroke="currentColor"
-            strokeWidth="2"
-            className={`transition-all duration-500 ${node.color} opacity-30`}
-            strokeDasharray={isExpanded ? "0" : "5,5"}
+            strokeWidth={isHovered ? "3" : "2"}
+            className={`transition-all duration-300 ${node.color} ${isHovered ? 'opacity-80' : 'opacity-40'}`}
+            style={{
+              filter: isHovered ? 'drop-shadow(0 0 8px currentColor)' : 'none'
+            }}
           />
         </svg>
-        
+
         <div
-          className={`absolute cursor-pointer transition-all duration-500 cursor-scale animate-scale-in`}
+          className={`absolute cursor-pointer transition-all duration-300 cursor-scale animate-scale-in`}
           style={{
             left: `${pos.x}%`,
             top: `${pos.y}%`,
             transform: 'translate(-50%, -50%)',
-            zIndex: 10,
+            zIndex: 20,
           }}
+          onMouseEnter={() => setHoveredNode(node.id)}
+          onMouseLeave={() => setHoveredNode(null)}
           onClick={() => toggleNode(node.id)}
         >
           <Card className={`p-3 glass-card hover-elevate ${
             isSelected ? 'ring-2 ring-primary scale-110' : ''
-          } ${isChild ? 'w-20 h-20' : 'w-24 h-24'} transition-all duration-300`}>
+          } ${isHovered ? 'scale-105' : ''} w-24 h-24 transition-all duration-300`}>
             <div className="flex flex-col items-center justify-center h-full space-y-1">
               <div className={`p-2 bg-accent/20 rounded-lg ${node.color}`}>
-                <Icon className={isChild ? 'w-5 h-5' : 'w-6 h-6'} />
+                <Icon className="w-6 h-6" />
               </div>
-              <p className={`${isChild ? 'text-[10px]' : 'text-xs'} font-bold text-center ${node.color}`}>
+              <p className={`text-xs font-bold text-center ${node.color} z-30 relative`}>
                 {node.label}
               </p>
             </div>
           </Card>
-          
-          {isSelected && (
-            <Card className="absolute top-full mt-2 p-3 glass-card max-w-xs animate-slide-up z-20 left-1/2 -translate-x-1/2">
-              <p className="text-sm">{node.content}</p>
+
+          {isHovered && (
+            <Card className={`absolute ${getInfoPosition()} p-4 glass-card max-w-xs animate-scale-in z-50 border-2 border-primary/50`}>
+              <p className="text-sm font-semibold mb-2 text-primary">{node.label}</p>
+              <p className="text-sm leading-relaxed text-foreground">{node.content}</p>
             </Card>
           )}
         </div>

@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Check, X, ChefHat, Thermometer, Scissors, Refrigerator } from 'lucide-react';
 import preventionImage from '@assets/generated_images/Food_safety_glowing_icons_9cc2dce0.png';
@@ -90,20 +90,7 @@ const mindMapNodes: Node[] = [
 ];
 
 export default function PreventionDosDontsMindMap() {
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
-  const [selectedNode, setSelectedNode] = useState<string | null>(null);
-
-  const toggleNode = (nodeId: string) => {
-    const newExpanded = new Set(expandedNodes);
-    if (newExpanded.has(nodeId)) {
-      newExpanded.delete(nodeId);
-      setSelectedNode(null);
-    } else {
-      newExpanded.add(nodeId);
-      setSelectedNode(nodeId);
-    }
-    setExpandedNodes(newExpanded);
-  };
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
   const calculatePosition = (angle: number, radius: number) => {
     const rad = (angle * Math.PI) / 180;
@@ -114,51 +101,66 @@ export default function PreventionDosDontsMindMap() {
   };
 
   const renderNode = (node: Node) => {
-    const isSelected = selectedNode === node.id;
+    const isHovered = hoveredNode === node.id;
     const Icon = node.icon;
     const radius = 35;
     const pos = calculatePosition(node.angle, radius);
 
+    // Smart positioning for info panel to avoid overlap
+    const getInfoPosition = () => {
+      const angle = node.angle;
+      if (angle >= 315 || angle < 45) return 'top-full mt-4 left-1/2 -translate-x-1/2';
+      if (angle >= 45 && angle < 135) return 'left-full ml-4 top-1/2 -translate-y-1/2';
+      if (angle >= 135 && angle < 225) return 'bottom-full mb-4 left-1/2 -translate-x-1/2';
+      return 'right-full mr-4 top-1/2 -translate-y-1/2';
+    };
+
     return (
       <div key={node.id}>
-        <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+        <svg className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
           <line
             x1="50%"
             y1="50%"
             x2={`${pos.x}%`}
             y2={`${pos.y}%`}
             stroke="currentColor"
-            strokeWidth="2"
-            className={`transition-all duration-500 ${node.color} opacity-30`}
+            strokeWidth={isHovered ? "3" : "2"}
+            className={`transition-all duration-300 ${node.color} ${isHovered ? 'opacity-80' : 'opacity-40'}`}
+            style={{
+              filter: isHovered ? 'drop-shadow(0 0 8px currentColor)' : 'none'
+            }}
           />
         </svg>
-        
+
         <div
-          className={`absolute cursor-pointer transition-all duration-500 cursor-scale animate-scale-in`}
+          className={`absolute cursor-pointer transition-all duration-300 cursor-scale animate-scale-in`}
           style={{
             left: `${pos.x}%`,
             top: `${pos.y}%`,
             transform: 'translate(-50%, -50%)',
-            zIndex: 10,
+            zIndex: 20,
           }}
-          onClick={() => toggleNode(node.id)}
+          onMouseEnter={() => setHoveredNode(node.id)}
+          onMouseLeave={() => setHoveredNode(null)}
         >
           <Card className={`p-3 glass-card hover-elevate ${
-            isSelected ? `ring-2 ${node.isDo ? 'ring-primary' : 'ring-destructive'} scale-110` : ''
+            isHovered ? `ring-2 ${node.isDo ? 'ring-primary' : 'ring-destructive'} scale-110` : ''
           } w-24 h-24 transition-all duration-300`}>
             <div className="flex flex-col items-center justify-center h-full space-y-1">
               <div className={`p-2 bg-accent/20 rounded-lg ${node.color}`}>
                 <Icon className="w-6 h-6" />
               </div>
-              <p className={`text-xs font-bold text-center ${node.color}`}>
+              <p className={`text-xs font-bold text-center ${node.color} z-30 relative`}>
                 {node.label}
               </p>
             </div>
           </Card>
-          
-          {isSelected && (
-            <Card className="absolute top-full mt-2 p-3 glass-card max-w-xs animate-slide-up z-20 left-1/2 -translate-x-1/2">
-              <p className="text-sm">{node.content}</p>
+
+          {isHovered && (
+            <Card className={`absolute ${getInfoPosition()} p-4 glass-card max-w-xs animate-scale-in z-50 border-2 ${
+              node.isDo ? 'border-primary/50' : 'border-destructive/50'
+            }`}>
+              <p className="text-sm leading-relaxed text-foreground">{node.content}</p>
             </Card>
           )}
         </div>
@@ -197,14 +199,14 @@ export default function PreventionDosDontsMindMap() {
             <Check className="w-5 h-5 text-primary" />
             <h4 className="font-bold text-primary">DO's</h4>
           </div>
-          <p className="text-sm text-muted-foreground">Click green circles to see safe food handling practices</p>
+          <p className="text-sm text-muted-foreground">Hover over green circles to see safe food handling practices</p>
         </Card>
         <Card className="p-4 glass-card border-destructive/50">
           <div className="flex items-center gap-2 mb-2">
             <X className="w-5 h-5 text-destructive" />
             <h4 className="font-bold text-destructive">DON'Ts</h4>
           </div>
-          <p className="text-sm text-muted-foreground">Click red circles to see what to avoid</p>
+          <p className="text-sm text-muted-foreground">Hover over red circles to see what to avoid</p>
         </Card>
       </div>
     </div>
